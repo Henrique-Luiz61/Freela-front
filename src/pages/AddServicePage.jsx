@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../contexts/authContext";
 import axios from "axios";
 
 export default function AddServicePage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState("");
+
+  const { token, setToken, userId, setUserId } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -18,15 +21,25 @@ export default function AddServicePage() {
       title,
       description,
       photo,
+      userId,
+    };
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     };
 
     const promise = axios.post(
-      `${import.meta.env.VITE_API_URL}/addService`,
-      newService
+      `${import.meta.env.VITE_API_URL}/addServices`,
+      newService,
+      config
     );
 
     promise.then((res) => {
       console.log(res.data);
+      setToken("");
+      setUserId("");
       navigate("/home");
     });
     promise.catch((err) => {

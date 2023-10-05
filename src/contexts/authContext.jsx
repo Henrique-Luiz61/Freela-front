@@ -13,6 +13,7 @@ export default function AuthProvider({ children }) {
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (!token) {
+      alert("Log in to the website!");
       navigate("/");
     } else {
       navigate("/home");
