@@ -7,7 +7,7 @@ export const AuthContext = createContext({});
 export default function AuthProvider({ children }) {
   const lsUser = JSON.parse(localStorage.getItem("user"));
   const [token, setToken] = useState(lsUser !== null ? lsUser.token : "");
-  const [name, setName] = useState(lsUser !== null ? lsUser.userName : "");
+  const [userId, setUserId] = useState(lsUser !== null ? lsUser.userId : "");
   const navigate = useNavigate();
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -21,7 +21,7 @@ export default function AuthProvider({ children }) {
   /* eslint-disable react-hooks/exhaustive-deps */
 
   return (
-    <AuthContext.Provider value={{ token, setToken, name, setName }}>
+    <AuthContext.Provider value={{ token, setToken, userId, setUserId }}>
       {children}
     </AuthContext.Provider>
   );
