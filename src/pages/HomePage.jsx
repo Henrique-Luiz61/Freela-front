@@ -1,57 +1,58 @@
 import styled from "styled-components";
 import Footer from "../components/Footer";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function HomePage() {
+  const [freelas, setFreelas] = useState(null);
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    const promise = axios.get(`${import.meta.env.VITE_API_URL}/home`);
+
+    promise.then((res) => {
+      console.log(res.data);
+      setFreelas(res.data);
+      console.log("FREELANCERS: ", freelas);
+    });
+    promise.catch((err) => {
+      console.log(err.reponse.data);
+      alert(err.reponse.data.message);
+    });
+  }, []);
+
   return (
     <PageContainer>
       <div>
         <h1>Freelancers disponíveis</h1>
       </div>
 
-      <CardContainer>
-        <img src="./src/assets/perfil.png" alt="user image" />
+      {freelas === null ? (
+        <h4>Loading...</h4>
+      ) : (
+        freelas.message && <h2>There are no freelancers registered yet </h2>
+      )}
 
-        <div>
-          <h2>Henrique Luiz</h2>
+      <ContainerCards>
+        {freelas !== null &&
+          !freelas.message &&
+          freelas.map((freela, i) => (
+            <CardContainer key={i}>
+              <img src={freela.photo} alt="user image" />
 
-          <ul>
-            <li>Front-end</li>
-            <li>Back-end</li>
-            <li>Node</li>
-            <li>Postgres</li>
-          </ul>
-        </div>
-      </CardContainer>
+              <div>
+                <h2>{freela.name}</h2>
 
-      <CardContainer>
-        <img src="./src/assets/perfil.png" alt="user image" />
-
-        <div>
-          <h2>Henrique Luiz</h2>
-
-          <ul>
-            <li>Front-end</li>
-            <li>Back-end</li>
-            <li>Node</li>
-            <li>Postgres</li>
-          </ul>
-        </div>
-      </CardContainer>
-
-      <CardContainer>
-        <img src="./src/assets/perfil.png" alt="user image" />
-
-        <div>
-          <h2>Henrique Luiz</h2>
-
-          <ul>
-            <li>Front-end</li>
-            <li>Back-end</li>
-            <li>Node</li>
-            <li>Postgres</li>
-          </ul>
-        </div>
-      </CardContainer>
+                <ul>
+                  <li>{freela.profession}</li>
+                  <li>{freela.telephone}</li>
+                  <li>{freela.city}</li>
+                  <li>{freela.email}</li>
+                </ul>
+              </div>
+            </CardContainer>
+          ))}
+      </ContainerCards>
 
       <Footer />
     </PageContainer>
@@ -67,16 +68,29 @@ const PageContainer = styled.section`
   align-items: center;
 `;
 
+const ContainerCards = styled.div`
+  width: 90%;
+  height: 80%;
+
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
 const CardContainer = styled.div`
+  background-color: blue;
   width: 90%;
   height: 15%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
+  margin: 20px auto;
 
   img {
-    width: 50px;
-    height: 50px;
+    width: 20%;
+    height: 60%;
   }
 
   li {
