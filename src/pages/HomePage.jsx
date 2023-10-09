@@ -12,9 +12,7 @@ export default function HomePage() {
     const promise = axios.get(`${import.meta.env.VITE_API_URL}/home`);
 
     promise.then((res) => {
-      console.log(res.data);
       setFreelas(res.data);
-      console.log("FREELANCERS: ", freelas);
     });
     promise.catch((err) => {
       console.log(err.reponse.data);

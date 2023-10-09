@@ -4,16 +4,18 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-export default function MyServicesPage() {
-  const [myServices, setMyServices] = useState(null);
+export default function FreelaServicesPage() {
+  const [services, setServices] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
-    const promise = axios.get(`${import.meta.env.VITE_API_URL}/services/${id}`);
+    const promise = axios.get(
+      `${import.meta.env.VITE_API_URL}/services/available/${id}`
+    );
 
     promise.then((res) => {
       console.log(res.data);
-      setMyServices(res.data);
+      setServices(res.data);
     });
     promise.catch((err) => {
       console.log(err.reponse.data);
@@ -27,16 +29,16 @@ export default function MyServicesPage() {
         <h1>Services available</h1>
       </div>
 
-      {myServices === null ? (
+      {services === null ? (
         <h4>Loading...</h4>
       ) : (
-        myServices.message && <h2>There are no freelancers registered yet </h2>
+        services.message && <h2>There are no freelancers registered yet </h2>
       )}
 
       <ContainerCards>
-        {myServices !== null &&
-          !myServices.message &&
-          myServices.map((serv) => (
+        {services !== null &&
+          !services.message &&
+          services.map((serv) => (
             <CardContainer key={serv.id}>
               <img src={serv.photo} alt="user image" />
 
