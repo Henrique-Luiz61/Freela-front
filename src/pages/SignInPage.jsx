@@ -41,6 +41,8 @@ export default function SignInPage() {
 
   return (
     <SingInContainer>
+      <h1>Get Samurais</h1>
+
       <form onSubmit={signIn}>
         <input
           placeholder="E-mail"

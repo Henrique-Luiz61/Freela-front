@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import Footer from "../components/Footer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../contexts/authContext";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 export default function MyServicesPage() {
   const [myServices, setMyServices] = useState(null);
-  const { id } = useParams();
+  const { userId } = useContext(AuthContext);
 
   useEffect(() => {
-    const promise = axios.get(`${import.meta.env.VITE_API_URL}/services/${id}`);
+    const promise = axios.get(
+      `${import.meta.env.VITE_API_URL}/services/${userId}`
+    );
 
     promise.then((res) => {
       console.log(res.data);
@@ -66,8 +68,6 @@ const PageContainer = styled.section`
 const ContainerCards = styled.div`
   width: 90%;
   height: 80%;
-
-  background-color: red;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

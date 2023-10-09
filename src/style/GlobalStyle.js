@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
         outline: none;
         border: none;
         border-radius: 3px;
-        background-color: #0000CD;
+        background-color: black;
         font-size: 20px;
         font-weight: 600;
         color: #fff;

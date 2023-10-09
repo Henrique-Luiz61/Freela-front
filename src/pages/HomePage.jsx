@@ -73,7 +73,6 @@ const ContainerCards = styled.div`
   width: 90%;
   height: 80%;
 
-  background-color: red;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
