@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const [freelas, setFreelas] = useState(null);
@@ -36,21 +37,23 @@ export default function HomePage() {
       <ContainerCards>
         {freelas !== null &&
           !freelas.message &&
-          freelas.map((freela, i) => (
-            <CardContainer key={i}>
-              <img src={freela.photo} alt="user image" />
+          freelas.map((freela) => (
+            <Link key={freela.id} to={`/services/available/${freela.id}`}>
+              <CardContainer>
+                <img src={freela.photo} alt="user image" />
 
-              <div>
-                <h2>{freela.name}</h2>
+                <div>
+                  <h2>{freela.name}</h2>
 
-                <ul>
-                  <li>{freela.profession}</li>
-                  <li>{freela.telephone}</li>
-                  <li>{freela.city}</li>
-                  <li>{freela.email}</li>
-                </ul>
-              </div>
-            </CardContainer>
+                  <ul>
+                    <li>{freela.profession}</li>
+                    <li>{freela.telephone}</li>
+                    <li>{freela.city}</li>
+                    <li>{freela.email}</li>
+                  </ul>
+                </div>
+              </CardContainer>
+            </Link>
           ))}
       </ContainerCards>
 

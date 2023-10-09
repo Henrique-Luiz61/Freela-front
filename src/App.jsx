@@ -5,6 +5,7 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import MyServicesPage from "./pages/MyServicesPage";
 import AddServicePage from "./pages/AddServicePage";
+import FreelaServices from "./pages/FreelaServices";
 import AuthProvider from "./contexts/authContext";
 
 export default function App() {
@@ -18,6 +19,10 @@ export default function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/myServices" element={<MyServicesPage />} />
             <Route path="/addServices" element={<AddServicePage />} />
+            <Route
+              path="/services/available/:id"
+              element={<FreelaServices />}
+            />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
